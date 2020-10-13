@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { graphql, useStaticQuery } from 'gatsby'
 //...GatsbyImageSharpFluid
 
-const query = graphql`
+/* const query = graphql`
   {
     allInstaNode(limit: 6) {
       nodes {
@@ -20,17 +20,17 @@ const query = graphql`
       totalCount
     }
   }
-`
+` */
 
 const Instagram = () => {
-  const data = useStaticQuery(query)
-  const {
-    allInstaNode: { nodes },
-  } = data
+  //const data = useStaticQuery(query)
+  //const {
+  //  allInstaNode: { nodes },
+  //} = data
   return (
     <Wrapper>
       <Title title="instagram" />
-      <div className="images">
+      {/* <div className="images">
         {nodes.map((item, index) => {
           const {
             localFile: {
@@ -39,7 +39,7 @@ const Instagram = () => {
           } = item
           return <Image fluid={fluid} key={index} />
         })}
-      </div>
+      </div> */}
     </Wrapper>
   )
 }
