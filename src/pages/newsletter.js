@@ -5,7 +5,7 @@ const NewsLetter = () => {
     <Layout>
       <section className="newsletter-page">
         <div className="page-center">
-          <h2>Get all the latest stories sent to your inbox</h2>
+          <h2>Get my latest articles sent to your inbox</h2>
           <h4>I write to my friends every few weeks</h4>
           <form
             className="contact-form"

@@ -1,0 +1,92 @@
+---
+title: Using Partial Dependence Plots in ML
+slug: using-partial-dependence
+image: ./images/bg-partial-dependence-plots.png
+date: 2020-06-18
+author: brian griner
+category: machine learning
+readTime: 12
+---
+
+import { Link } from 'gatsby'
+
+## Using Partial Dependence Plots in ML to Measure Feature Importance
+
+Outline
+
+1. Problem Statement - How can we better understand Cause and Effect between inputs and outputs when using a complex machine learning or deep learning algorithm?
+
+2. Feature Importance - What is Importance? How do we measure it?
+
+3. Linear models
+
+4. Machine learning algorithms
+5. Ensembles
+6. Neural Networks
+
+7. Partial Dependence Plots i. Linear models ii. Machine learning algorithms iii. Ensembles iv. Neural Networks
+
+Case study - Diabetes Risk Factors
+
+Links for Partial Dependence Plots:
+
+https://stats.stackexchange.com/questions/233396/partial-dependence-plot-interpretation
+
+http://ask.skytree.net/question/12/partial-dependence-plots/
+
+Research
+
+Peeking Inside the Black Box: Visualizing Statistical Learning with Plots of Individual Conditional Expectation Alex Goldstein,
+Adam Kapelner†, Justin Bleich‡, and Emil Pitkin§ The Wharton School of the University of Pennsylvania
+
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+#diabetes = pd.read_csv('pima-indians-diabetes.data.csv')
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'gluc', 'dbp', 'skin', 'insul', 'bmi', 'pedi', 'age', 'class']
+diabetes = pd.read_csv(filename, names=names)
+
+print(diabetes.columns)
+diabetes.head()
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(diabetes.loc[:, diabetes.columns != 'class'], diabetes['class'], stratify=diabetes['class'], random_state=66)
+
+from sklearn.tree import DecisionTreeClassifier
+
+tree = DecisionTreeClassifier(random_state=0)
+tree.fit(X_train, y_train)
+print("Accuracy on training set: {:.3f}".format(tree.score(X_train, y_train)))
+print("Accuracy on test set: {:.3f}".format(tree.score(X_test, y_test)))
+
+tree = DecisionTreeClassifier(max_depth=3, random_state=0)
+tree.fit(X_train, y_train)
+
+print("Accuracy on training set: {:.3f}".format(tree.score(X_train, y_train)))
+print("Accuracy on test set: {:.3f}".format(tree.score(X_test, y_test)))
+
+diabetes_features = [x for i,x in enumerate(diabetes.columns) if i!=8]
+
+print("")
+print("Decision Tree Feature importances:\n{}".format(tree.feature_importances_))
+
+def plot_feature_importances_diabetes(model):
+    plt.figure(figsize=(8,6))
+    n_features = 8
+    plt.barh(range(n_features), model.feature_importances_, align='center')
+    plt.yticks(np.arange(n_features), diabetes_features)
+    plt.xlabel("Feature importance")
+    plt.ylabel("Feature")
+    plt.ylim(-1, n_features)
+
+plot_feature_importances_diabetes(tree)
+plt.savefig('Decision Tree feature_importance')
+```
+
+<Link to="/posts" className="btn center-btn">
+  all posts
+</Link>

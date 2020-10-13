@@ -67,6 +67,9 @@ const IframeVideoWrapper = styled.div`
 `
 
 Video.defaultProps = {
-  src: 'https://www.youtube.com/embed/-8ORfgUa8ow',
-  title: 'the best html css tutorial ever !',
+  src: 'https://www.youtube.com/embed/_7M5O1Frtf8',
+  //src: 'https://www.youtube.com/embed/MTP99IHemNA',
+  //src: 'https://www.youtube.com/embed/-8ORfgUa8ow',
+  //title: 'federer backhand slow motion',
+  title: 'stan warwinka backhand',
 }
